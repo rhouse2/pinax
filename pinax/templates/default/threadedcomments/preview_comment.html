@@ -1,0 +1,23 @@
+{% extends group_base|default:"site_base.html" %}
+{% load account_tags %}
+{% load threadedcommentstags %}
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block body_class %}comments{% endblock %}
+
+{% block body %}
+    {% if comment %}
+        <div id="comment_preview">{% auto_transform_markup comment %}</div>
+    {% endif %}
+    <fieldset class="inlineLabels">
+        <form class="uniForm" method="POST" action="" >
+            {% csrf_token %}
+            {{ form|as_uni_form }}            
+            <div class = "form_block">
+            <input type="submit" value="{% trans "Post Response" %}" />
+            <input type="hidden" name="next" value="{{ request.POST.next }}" />
+            </div>
+        </form>
+    </fieldset>
+{% endblock %}
